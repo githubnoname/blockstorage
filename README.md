@@ -6,8 +6,8 @@ Test task is about storing and organizing data blocks in blobs. Good point to st
 Requirements
 ------------
 
-C++11, was tested with gcc-4.8.5.
-Unix-like OS, was tested on Centos 7.
+* C++11, was tested with gcc-4.8.5.
+* Unix-like OS, was tested on Centos 7.
 
 Build & check
 -------------
