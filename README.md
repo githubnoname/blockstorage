@@ -17,7 +17,7 @@ Build & check
 bin/storage
 -----------
 
-        The CLI utility. Can be used to play with blobs and blocks.
+The CLI utility. Can be used to play with blobs and blocks.
 
         # init new blob in the file 'data1'. Set limit to 3 blocks.
         $ bin/storage -f data1 --init 3
