@@ -21,17 +21,6 @@ int help(int code=0){
 }
 
 
-void print_block(uint64_t aBlockId, CXDataPtr const &aBlk){
-    printf("%d -", int(aBlockId));
-    if(aBlk == 0)
-        printf(" Fail");
-    else
-        for(auto &x : *aBlk)
-            printf(" 0x%02X" , int(x));
-    printf("\n");
-}
-
-
 int main(int argc, char **argv){
     ARGV0 = argv[0];
     char const *fname = 0;
@@ -58,13 +47,13 @@ int main(int argc, char **argv){
     if(fname == 0)
         return error("You have to specify filename to open");
     AXDriverPtr driver(new CXBlobFileDriver(fname));
-    std::unique_ptr<CXBlob> blob(new CXBlob(driver));
+    CXBlob blob(driver);
 
     bool ok = false;
     if(rows == 0)
-        ok = blob->init();
+        ok = blob.init();
     else
-        ok = blob->init(BLOCK_SIZE, atoi(rows));
+        ok = blob.init(BLOCK_SIZE, atoi(rows));
 
     if(!ok)
         return error("Init failed");
@@ -74,12 +63,12 @@ int main(int argc, char **argv){
         std::vector<uint8_t> data(BLOCK_SIZE);
         for(size_t i = 0; i < strlen(put_data) && i < BLOCK_SIZE; i++)
             data[i] = put_data[i];
-        if(!blob->putBlock(id, data))
+        if(!blob.putBlock(id, data))
             return error("Can't insert data");
     }
     else if(get_id != 0){
         auto id = atoi(get_id);
-        auto data = blob->getBlock(id);
+        auto data = blob.getBlock(id);
         if(data == 0)
             return error("Can't get data");
         printf("%d => '%.*s'\n", id, BLOCK_SIZE, data->data());

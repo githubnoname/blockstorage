@@ -10,6 +10,8 @@
 // - handling blocks by ids,
 // - prevent holding blocks with same ids,
 // - limiting blocks amount.
+//
+// Calling any methods before init or after failed init is illegal.
 
 
 class CXBlob{

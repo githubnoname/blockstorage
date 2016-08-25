@@ -7,12 +7,9 @@ LINK = g++ -std=c++11
 STORAGE_SRC = src/main.cpp src/cxblobfiledriver.cpp src/cxblob.cpp src/cxblockmap.cpp
 
 # tests sources
-# READERSTEST_SRC = src/test_readers.cpp src/cxfilereader.cpp
-# PARSERTEST_SRC  = src/test_parser.cpp src/cxparser.cpp
-# FILTERSTEST_SRC = src/test_filters.cpp src/axcmp.cpp src/cxpipefilter.cpp
-# SORTTEST_SRC    = src/test_sort.cpp src/axcmp.cpp src/cxpipefilter.cpp src/cxpipesorter.cpp
+TESTBLOB_SRC = src/test_blob.cpp src/cxblobfiledriver.cpp src/cxblob.cpp src/cxblockmap.cpp
 
-# TESTS = bin/test_readers bin/test_parser bin/test_filters bin/test_sort
+TESTS = bin/test_blob
 
 noop =
 space = $(noop) $(noop)
@@ -27,6 +24,9 @@ build: bin/storage
 
 bin/storage: ${STORAGE_SRC:src/%.cpp=objs/%.d} ${STORAGE_SRC:src/%.cpp=objs/%.o}
 	${LINK} ${STORAGE_SRC:src/%.cpp=objs/%.o} -o $@
+
+bin/test_blob: ${TESTBLOB_SRC:src/%.cpp=objs/%.d} ${TESTBLOB_SRC:src/%.cpp=objs/%.o}
+	${LINK} ${TESTBLOB_SRC:src/%.cpp=objs/%.o} -o $@
 
 check: ${TESTS}
 	$(subst $(space), && ,$(foreach x,${TESTS},./$(x)))

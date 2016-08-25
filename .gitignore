@@ -1,3 +1,3 @@
-objs/.o*
-objs/.d*
+objs/*.o
+objs/*.d
 bin/*
